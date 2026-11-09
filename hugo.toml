@@ -1,6 +1,6 @@
 baseURL = 'https://blog.rubuy.me/'
 languageCode = 'en'
-title = 'rubuy'
+title = 'rubuy.docs'
 disableKinds = ['taxonomy', 'term']
 
 [params]
