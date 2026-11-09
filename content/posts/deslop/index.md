@@ -3,7 +3,7 @@ title: "deslop"
 date: 2026-11-06
 ---
 
-TLDR; Created a web extension for classifying AI generated content on short form video platforms. Struggled with visual identity choices and the actual usability of the project, not moving on with this one
+**TLDR**; Created a web extension for classifying AI generated content on short form video platforms. Struggled with visual identity choices and the actual usability of the project, not moving on with this one
 
 <div class="image-row"><img src="images/img/Pasted%20image%2020261106230004.png" alt="Pasted image 20261106230004" loading="lazy" decoding="async"></div>
 

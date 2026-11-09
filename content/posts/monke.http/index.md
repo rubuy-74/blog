@@ -3,7 +3,7 @@ title: "monke.http"
 date: 2026-11-06
 ---
 
-TLDR; Created a http.cat but for monkeys because I like looking at monkeys more than cats
+**TLDR;** Created a http.cat but for monkeys because I like looking at monkeys more than cats
 
 project link: https://github.com/rubuy-74/monke.http/
 website link: https://monke.rubuy.me/
@@ -11,6 +11,13 @@ website link: https://monke.rubuy.me/
 This a simple and quick idea that I had for some time now but I never gave it the day that this idea required. I was randomly at a library here at Enschede and, while applying for jobs it dawned on me, "oh, I could look at pictures of monkeys for some hours right now" and then I just did it.
 
 While working on this I felt actually very happy, monkeys have been a kind of obsession for me in the last couple of months and now I have a place to look at funny pictures of monkeys.
+
+The website itself was made to be as simple as possible and look some funny monkey pictures, laugh and then go do something else, but I actually like how it came out.
+
+<div class="image-row"><img src="images/img/Pasted%20image%2020261109141016.png" alt="Pasted image 20261109141016" loading="lazy" decoding="async"></div>
+
+
+The logo is my favorite part from the whole website, it's the perfect spot between being minimalist and with enough detail. The color palette also matches the website idea and the monkeys seem to be happy to be here.
 
 These are some funny monkey pictures on the website and why I like them:
 
