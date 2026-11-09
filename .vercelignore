@@ -1,0 +1,6 @@
+.tools
+.blog
+__pycache__
+resources
+public
+.hugo_build.lock

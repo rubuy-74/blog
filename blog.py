@@ -43,6 +43,12 @@ def export(source, project=ROOT):
     for path in files:
         if not path.resolve().is_relative_to(source):
             raise ValueError(f'Symlinks outside the publishing folder are not allowed: {path}')
+    # Obsidian saves pasted images at the vault root unless configured otherwise.
+    vault = source.parent
+    if (vault / '.obsidian').is_dir():
+        files += sorted(p for p in vault.iterdir()
+                        if p.is_file() and p.suffix.lower() in IMAGE_TYPES
+                        and not p.name.startswith('.') and p.resolve().parent == vault)
     notes = [p for p in files if p.suffix.lower() == '.md' and p.is_relative_to(published)]
     for note in notes:
         if not note.resolve().is_relative_to(published):
@@ -64,9 +70,10 @@ def export(source, project=ROOT):
         target = unquote(target).strip()
         for path in (note.parent / target, published / target, source / target):
             path = path.resolve()
-            if path.is_relative_to(source) and path in candidates:
+            if path in candidates:
                 return path
-        matches = [p for p in candidates if p.name == target or p.relative_to(source).as_posix() == target]
+        matches = [p for p in candidates if p.name == target
+                   or (p.is_relative_to(source) and p.relative_to(source).as_posix() == target)]
         if len(matches) != 1:
             reason = 'not found' if not matches else 'ambiguous'
             raise ValueError(f'{note.relative_to(source)}: reference {target!r} is {reason} inside the publishing folder')
@@ -108,7 +115,8 @@ def export(source, project=ROOT):
                 path = resolve(target, note)
                 if path.suffix.lower() not in IMAGE_TYPES:
                     raise ValueError(f'{relative}: unsupported image type: {target}')
-                destination = bundle / 'images' / path.relative_to(source)
+                relative_image = path.relative_to(source) if path.is_relative_to(source) else Path('vault') / path.name
+                destination = bundle / 'images' / relative_image
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 if path not in copied:
                     shutil.copyfile(path, destination)

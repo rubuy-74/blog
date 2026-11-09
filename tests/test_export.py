@@ -193,6 +193,25 @@ class ExportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Published folder must exist'):
             self.run_export()
 
+    def test_referenced_vault_root_images_are_supported_without_publishing_other_notes(self):
+        (self.root / '.obsidian').mkdir()
+        image = self.root / 'pasted.png'
+        image.write_bytes(b'original bytes')
+        (self.root / 'unused.png').write_bytes(b'not referenced')
+        (self.root / 'private.md').write_text('Private note')
+        self.write('post.md', '![[pasted.png|170]]')
+        self.assertEqual(self.run_export(), {'posts': 1, 'images': 1})
+        self.assertIn('src="images/vault/pasted.png"', self.post())
+        destination = self.project / 'content/posts/post/images/vault/pasted.png'
+        self.assertEqual(destination.read_bytes(), image.read_bytes())
+        self.assertFalse(destination.with_name('unused.png').exists())
+
+    def test_parent_images_are_not_allowed_without_detected_vault(self):
+        (self.root / 'pasted.png').write_bytes(b'private bytes')
+        self.write('post.md', '![[pasted.png]]')
+        with self.assertRaisesRegex(ValueError, 'not found'):
+            self.run_export()
+
 
 if __name__ == '__main__':
     unittest.main()
