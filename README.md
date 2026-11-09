@@ -1,6 +1,5 @@
 # rubuy
 
-My personal blog. Things I wrote about projects, experiments, and whatever else
-I'm thinking about.
+notes about projects, experiments and things that excite me.
 
-Built with [Hugo](https://gohugo.io/), with a minimal layout and light and dark modes.
+Built with [Hugo](https://gohugo.io/).
