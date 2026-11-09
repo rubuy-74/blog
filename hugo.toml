@@ -1,0 +1,15 @@
+baseURL = 'http://localhost:1313/'
+languageCode = 'en'
+title = 'rubuy'
+disableKinds = ['taxonomy', 'term']
+
+[params]
+  description = 'things i wrote'
+
+[markup.goldmark.renderer]
+  unsafe = true
+  hardWraps = true
+
+[markup.highlight]
+  style = 'native'
+  noClasses = false

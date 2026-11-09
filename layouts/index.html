@@ -1,0 +1,8 @@
+{{ define "main" }}
+<h1>things i actually wrote</h1>
+<ul class="entries">
+  {{ range where site.RegularPages.ByDate.Reverse "Section" "posts" }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
+{{ end }}
