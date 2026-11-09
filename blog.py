@@ -228,12 +228,34 @@ def hugo(install=False):
     return str(local)
 
 
+def push_posts(project=ROOT):
+    branch = subprocess.run(['git', 'symbolic-ref', '--short', 'HEAD'], cwd=project,
+                            check=True, capture_output=True, text=True).stdout.strip()
+    upstream = subprocess.run(['git', 'rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}'],
+                              cwd=project, check=True, capture_output=True, text=True).stdout.strip()
+    if branch != 'main' or upstream != 'origin/main':
+        raise ValueError('Publishing requires main tracking origin/main; no changes were committed or pushed.')
+    staged = subprocess.run(['git', 'diff', '--cached', '--name-only'], cwd=project,
+                            check=True, capture_output=True, text=True).stdout
+    if staged:
+        raise ValueError('There are already staged changes. Commit or unstage them before running sync-blog.')
+    subprocess.run(['git', 'add', '-A', '--', 'content/posts'], cwd=project, check=True)
+    changed = subprocess.run(['git', 'diff', '--cached', '--name-only', '--', 'content/posts'],
+                             cwd=project, check=True, capture_output=True, text=True).stdout
+    if changed:
+        subprocess.run(['git', 'commit', '-m', 'Update blog posts'], cwd=project, check=True)
+    else:
+        print('No new post changes to commit.', flush=True)
+    # Push even without a new commit, so a previously failed push can be retried.
+    subprocess.run(['git', 'push', 'origin', 'main'], cwd=project, check=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['setup', 'export', 'serve', 'build'])
+    parser.add_argument('command', choices=['setup', 'export', 'serve', 'build', 'sync'])
     parser.add_argument('--source', type=Path, default=Path(os.environ.get('OBSIDIAN_BLOG_SOURCE', str(DEFAULT_SOURCE))))
     parser.add_argument('--port', type=int, default=1313)
-    parser.add_argument('--base-url', help='Public website URL (for build only)')
+    parser.add_argument('--base-url', help='Public website URL (for build or sync)')
     args = parser.parse_args()
     if args.command == 'setup':
         subprocess.run([hugo(install=True), 'version'], check=True)
@@ -245,12 +267,14 @@ def main():
         print(f'Preview: http://localhost:{args.port}/ (Ctrl+C to stop)', flush=True)
         subprocess.run([binary, 'server', '--bind', '127.0.0.1', '--port', str(args.port),
                         '--buildDrafts', '--buildFuture', '--disableFastRender'], cwd=ROOT, check=True)
-    elif args.command == 'build':
+    elif args.command in ('build', 'sync'):
         assert binary is not None
         command = [binary, '--cleanDestinationDir', '--gc']
         if args.base_url:
             command += ['--baseURL', args.base_url]
         subprocess.run(command, cwd=ROOT, check=True)
+        if args.command == 'sync':
+            push_posts()
 
 
 if __name__ == '__main__':

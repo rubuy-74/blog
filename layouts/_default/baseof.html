@@ -6,6 +6,10 @@
   <meta name="color-scheme" content="dark light">
   <title>{{ if not .IsHome }}{{ .Title }} / {{ end }}{{ site.Title }}</title>
   <meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Plain | truncate 160 }}{{ end }}">
+  {{ $logo := (resources.Get "logo.png").Crop "640x640 center" }}
+  {{ $favicon := $logo.Resize "64x64" }}
+  {{ $headerLogo := $logo.Resize "96x96" }}
+  <link rel="icon" type="image/png" sizes="64x64" href="{{ $favicon.RelPermalink }}">
   <script src="{{ "js/theme.js" | relURL }}"></script>
   <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
   {{ with .OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">{{ end }}
@@ -14,7 +18,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="shell">
     <header class="site-header">
-      <a class="wordmark" href="{{ site.Home.RelPermalink }}">rubuy.docs</a>
+      <a class="wordmark" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }} home"><img src="{{ $headerLogo.RelPermalink }}" alt="{{ site.Title }}" width="48" height="48"></a>
       <button id="theme-toggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4" />

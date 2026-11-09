@@ -3,6 +3,10 @@ languageCode = 'en'
 title = 'rubuy.docs'
 disableKinds = ['taxonomy', 'term']
 
+[[module.mounts]]
+  source = 'logo.png'
+  target = 'assets/logo.png'
+
 [params]
   description = 'things i wrote'
 
