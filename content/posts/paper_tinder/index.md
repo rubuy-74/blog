@@ -46,8 +46,7 @@ Before everything ask me about the papers that I already classified manually  fo
 
 What came of it worked really well for me and it 100% accelerated the work and gave me much more time to analyze the actual contents of the papers (what I'm doing nowadays). These are screenshots of the most relevant parts of the app
 
-
-<div class="image-row"><img src="images/img/paper_screening.jpeg" alt="paper_screening" width="1" loading="lazy" decoding="async"> <img src="images/img/paper_screening.jpeg" alt="paper_screening" width="170" loading="lazy" decoding="async"> <img src="images/img/paper_search.jpeg" alt="paper_search" width="170" loading="lazy" decoding="async"> <img src="images/img/export_screening.jpeg" alt="export_screening" width="170" loading="lazy" decoding="async"> <img src="images/img/screening_complete.jpeg" alt="screening_complete" width="170" loading="lazy" decoding="async"></div>
+<div class="image-row"><img src="images/img/paper_screening.jpeg" alt="paper_screening" width="170" loading="lazy" decoding="async"> <img src="images/img/paper_search.jpeg" alt="paper_search" width="170" loading="lazy" decoding="async"> <img src="images/img/export_screening.jpeg" alt="export_screening" width="170" loading="lazy" decoding="async"> <img src="images/img/screening_complete.jpeg" alt="screening_complete" width="170" loading="lazy" decoding="async"></div>
 
 
 This is not a technical showcase of some complicated thing but some words about how simply you can just make stuff now. It's just incredible the things you can do in 30 minutes and how that can really makes things easier for you. I will definitely be exploring much more this Personal Software world.
